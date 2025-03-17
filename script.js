@@ -14,11 +14,27 @@ const calculator = {
         this.display.value += digit;
     },
 
+    removeDigit: function() {
+        if (this.display.value) {
+            this.display.value = this.display.value.slice(0, this.display.value.length-1);
+        }
+    },
+
+    handleSpecial: function(token) {
+        switch (token) {
+           case 'backspace':
+            this.removeDigit();
+            break;
+        }
+    },
+
     keyPressed: function(event) {
         console.log(event.target.id);
         console.log(event.target.className);
         if (event.target.className === 'digit') {
             calculator.addDigit(event.target.id);
+        } else if (event.target.className === 'special') {
+            calculator.handleSpecial(event.target.id);
         }
     },
 
