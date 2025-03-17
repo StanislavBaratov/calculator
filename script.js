@@ -28,7 +28,7 @@ const calculator = {
         }
     },
 
-    keyPressed: function(event) {
+    buttonPressed: function(event) {
         console.log(event.target.id);
         console.log(event.target.className);
         if (event.target.className === 'digit') {
@@ -46,7 +46,7 @@ const calculator = {
     },
 
     initCalculator: function() {
-        this.buttons.forEach((item) => item.addEventListener('click', this.keyPressed));
+        this.buttons.forEach((item) => item.addEventListener('click', this.buttonPressed));
     }
 }
 
