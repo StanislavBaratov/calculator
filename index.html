@@ -11,14 +11,40 @@
 
 <body>
     <div class="calculator">
-        <div class="display"></div>
+        <div class="display">
+            <input type="text" maxlength="16">
+        </div>
         <div class="buttons">
-            <div class="buttons-top"></div>
-            <div class="main-block">
-                <div class="digits"></div>
-                <div class="zero-equal"></div>
+            <div class="button-row">
+                <button type="button" id="clear" class="special">C</button>
+                <button type="button" id="clear-all" class="special">A/C</button>
+                <button type="button" id="backspace" class="special">&lt;</button>
+                <button type="button" id="sqrt" class="operation">√</button>
             </div>
-            <div class="operators"></div>
+            <div class="button-row">
+                <button type="button" id="7" class="digit">7</button>
+                <button type="button" id="8" class="digit">8</button>
+                <button type="button" id="9" class="digit">9</button>
+                <button type="button" id="add" class="operation">+</button>
+            </div>
+            <div class="button-row">
+                <button type="button" id="4" class="digit">4</button>
+                <button type="button" id="5" class="digit">5</button>
+                <button type="button" id="6" class="digit">6</button>
+                <button type="button" id="sub" class="operation">-</button>
+            </div>
+            <div class="button-row">
+                <button type="button" id="1" class="digit">1</button>
+                <button type="button" id="2" class="digit">2</button>
+                <button type="button" id="3" class="digit">3</button>
+                <button type="button" id="mul" class="operation">x</button>
+            </div>
+            <div class="button-row">
+                <button type="button" id="dot" class="digit">.</button>
+                <button type="button" id="0" class="digit">0</button>
+                <button type="button" id="equal" class="operation">=</button>
+                <button type="button" id="div" class="operation">/</button>
+            </div>
         </div>
     </div>
 </body>
