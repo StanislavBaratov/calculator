@@ -54,7 +54,12 @@ const calculator = {
                 this.operatorPressed = true;
                 this.display.value = this.firstOperand;
                 break;
-
+            case 'clear-all':
+                this.resetCalculator();
+                break;
+            case 'clear':
+                this.display.value = '';
+                break;
         }
     },
 
@@ -83,6 +88,7 @@ const calculator = {
     },
 
     resetCalculator: function() {
+        this.display.value = '';
         this.firstOperand = 0;
         this.secondOperand = 0;
         this.operatorPressed = false;
