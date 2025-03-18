@@ -39,7 +39,7 @@ const calculator = {
                 return firstOperand / secondOperand;
                 break;
             default:
-                return NaN;
+                return firstOperand;
         }
     },
 
