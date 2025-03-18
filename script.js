@@ -60,6 +60,9 @@ const calculator = {
             case 'clear':
                 this.display.value = '';
                 break;
+            case 'sqrt':
+                this.display.value = Math.sqrt(parseFloat(this.display.value));
+                break;
         }
     },
 
