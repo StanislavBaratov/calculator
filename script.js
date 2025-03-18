@@ -51,7 +51,7 @@ const calculator = {
             case 'equal':
                 this.firstOperand = this.evaluateExpression();
                 this.currentOperator = null;
-                this.operatorPressed = false;
+                this.operatorPressed = true;
                 this.display.value = this.firstOperand;
                 break;
 
