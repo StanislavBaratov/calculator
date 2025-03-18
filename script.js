@@ -21,19 +21,11 @@ const calculator = {
         }
     },
 
-    handleSpecial: function(token) {
-        switch (token) {
-           case 'backspace':
-            this.removeDigit();
-            break;
-        }
-    },
-
-    evaluateExpression: function(operator) {
+    evaluateExpression: function() {
         const secondOperand = parseFloat(this.display.value);
         const firstOperand = parseFloat(this.firstOperand);
 
-        switch (operator) {
+        switch (this.currentOperator) {
             case 'add':
                 return firstOperand + secondOperand;
                 break;
@@ -51,9 +43,24 @@ const calculator = {
         }
     },
 
+    handleSpecial: function(token) {
+        switch (token) {
+            case 'backspace':
+                this.removeDigit();
+                break;
+            case 'equal':
+                this.firstOperand = this.evaluateExpression();
+                this.currentOperator = null;
+                this.operatorPressed = false;
+                this.display.value = this.firstOperand;
+                break;
+
+        }
+    },
+
     setOperator: function(operator) {
         if (this.currentOperator && !this.operatorPressed) {
-            this.display.value = this.evaluateExpression(this.currentOperator);
+            this.display.value = this.evaluateExpression();
         }
 
         this.currentOperator = operator;
