@@ -1,17 +1,18 @@
-const FIRST_OPERAND = 0;
-const SECOND_OPERAND = 1;
-
 const calculator = {
     display: document.querySelector('input'),
     buttons: document.querySelectorAll('button'),
     firstOperand: 0,
     secondOperand: 0,
-    state: FIRST_OPERAND,
+    operatorPressed: false,
     currentOperator: null,
 
     addDigit: function(digit) {
-        console.log(this.display);
-        this.display.value += digit;
+        if (this.operatorPressed)  {
+            this.display.value = digit;
+            this.operatorPressed = false;
+        } else {
+            this.display.value += digit;
+        }
     },
 
     removeDigit: function() {
@@ -28,6 +29,38 @@ const calculator = {
         }
     },
 
+    evaluateExpression: function(operator) {
+        const secondOperand = parseFloat(this.display.value);
+        const firstOperand = parseFloat(this.firstOperand);
+
+        switch (operator) {
+            case 'add':
+                return firstOperand + secondOperand;
+                break;
+            case 'sub':
+                return firstOperand - secondOperand;
+                break;
+            case 'mul':
+                return firstOperand * secondOperand;
+                break;
+            case 'div':
+                return firstOperand / secondOperand;
+                break;
+            default:
+                return NaN;
+        }
+    },
+
+    setOperator: function(operator) {
+        if (this.currentOperator && !this.operatorPressed) {
+            this.display.value = this.evaluateExpression(this.currentOperator);
+        }
+
+        this.currentOperator = operator;
+        this.firstOperand = this.display.value;
+        this.operatorPressed = true;
+    },
+
     buttonPressed: function(event) {
         console.log(event.target.id);
         console.log(event.target.className);
@@ -35,13 +68,17 @@ const calculator = {
             calculator.addDigit(event.target.id);
         } else if (event.target.className === 'special') {
             calculator.handleSpecial(event.target.id);
+        } else if (event.target.className === 'operation') {
+            calculator.setOperator(event.target.id);
+        } else {
+            alert('This button type does not exist!');
         }
     },
 
     resetCalculator: function() {
         this.firstOperand = 0;
         this.secondOperand = 0;
-        this.state = FIRST_OPERAND;
+        this.operatorPressed = false;
         this.currentOperator = null;
     },
 
