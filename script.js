@@ -25,17 +25,24 @@ const calculator = {
         const secondOperand = parseFloat(this.display.value);
         const firstOperand = parseFloat(this.firstOperand);
 
+        console.log(firstOperand);
+        console.log(secondOperand);
+
         switch (this.currentOperator) {
             case 'add':
+            case '+':
                 return firstOperand + secondOperand;
                 break;
             case 'sub':
+            case '-':
                 return firstOperand - secondOperand;
                 break;
             case 'mul':
+            case '*':
                 return firstOperand * secondOperand;
                 break;
             case 'div':
+            case '/':
                 return firstOperand / secondOperand;
                 break;
             default:
@@ -44,12 +51,16 @@ const calculator = {
     },
 
     handleSpecial: function(token) {
+        console.log(token);
         switch (token) {
             case 'backspace':
+            case 'Delete':
                 this.removeDigit();
                 break;
             case 'equal':
+            case '=':
                 this.firstOperand = this.evaluateExpression();
+                console.log(this.firstOperand);
                 this.currentOperator = null;
                 this.operatorPressed = true;
                 this.display.value = this.firstOperand;
@@ -61,12 +72,14 @@ const calculator = {
                 this.display.value = '';
                 break;
             case 'sqrt':
+            case 'Backslash':
                 this.display.value = Math.sqrt(parseFloat(this.display.value));
                 break;
         }
     },
 
     setOperator: function(operator) {
+        console.log(operator);
         if (this.currentOperator && !this.operatorPressed) {
             this.display.value = this.evaluateExpression();
         }
@@ -90,6 +103,22 @@ const calculator = {
         }
     },
 
+    keyPressed: function(event) {
+        console.log(event.code);
+        console.log(event.key);
+        if (/\d/.test(event.key)) {
+            calculator.addDigit(event.key);
+        } else if (event.key === 'Enter' || event.key == '=') {
+            calculator.handleSpecial('equal');
+        } else if (event.key === 'Delete') {
+            calculator.removeDigit();
+        } else if (/[-//*+]/.test(event.key)) {
+            calculator.setOperator(event.key);
+        } else if (event.code === 'Backslash') { // event.code === Backslash, event.key = \\
+            calculator.handleSpecial(event.code);
+        }
+    },
+
     resetCalculator: function() {
         this.display.value = '';
         this.firstOperand = 0;
@@ -100,6 +129,7 @@ const calculator = {
 
     initCalculator: function() {
         this.buttons.forEach((item) => item.addEventListener('click', this.buttonPressed));
+        document.querySelector('html').addEventListener('keypress', this.keyPressed);
     }
 }
 
