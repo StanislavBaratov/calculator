@@ -25,9 +25,6 @@ const calculator = {
         const secondOperand = parseFloat(this.display.value);
         const firstOperand = parseFloat(this.firstOperand);
 
-        console.log(firstOperand);
-        console.log(secondOperand);
-
         switch (this.currentOperator) {
             case 'add':
             case '+':
@@ -51,7 +48,6 @@ const calculator = {
     },
 
     handleSpecial: function(token) {
-        console.log(token);
         switch (token) {
             case 'backspace':
             case 'Delete':
@@ -60,7 +56,6 @@ const calculator = {
             case 'equal':
             case '=':
                 this.firstOperand = this.evaluateExpression();
-                console.log(this.firstOperand);
                 this.currentOperator = null;
                 this.operatorPressed = true;
                 this.display.value = this.firstOperand;
@@ -79,7 +74,6 @@ const calculator = {
     },
 
     setOperator: function(operator) {
-        console.log(operator);
         if (this.currentOperator && !this.operatorPressed) {
             this.display.value = this.evaluateExpression();
         }
@@ -90,8 +84,6 @@ const calculator = {
     },
 
     buttonPressed: function(event) {
-        console.log(event.target.id);
-        console.log(event.target.className);
         if (event.target.className === 'digit') {
             calculator.addDigit(event.target.id);
         } else if (event.target.className === 'special') {
@@ -104,8 +96,6 @@ const calculator = {
     },
 
     keyPressed: function(event) {
-        console.log(event.code);
-        console.log(event.key);
         if (/\d/.test(event.key)) {
             calculator.addDigit(event.key);
         } else if (event.key === 'Enter' || event.key == '=') {
